@@ -6,8 +6,18 @@ on:
   pull_request:
     branches: [ "main", "master" ]
   schedule:
-    # প্রতি ২ ঘণ্টা অন্তর অন্তর স্বয়ংক্রিয়ভাবে রান হবে
-    - cron: '0 */2 * * *'
+    # দিনে মোট ১১ বার বিভিন্ন ঘণ্টা ও মিনিটে (~২ ঘণ্টার ব্যবধানে) রান হবে
+    - cron: '12 0 * * *'
+    - cron: '27 2 * * *'
+    - cron: '41 4 * * *'
+    - cron: '53 6 * * *'
+    - cron: '8 9 * * *'
+    - cron: '19 11 * * *'
+    - cron: '34 13 * * *'
+    - cron: '46 15 * * *'
+    - cron: '58 17 * * *'
+    - cron: '9 20 * * *'
+    - cron: '4 22 * * *'
   workflow_dispatch:
 
 jobs:
@@ -36,7 +46,7 @@ jobs:
           cache: false
 
       - name: Get packages from pub.dev
-        run: flutter pub get
+        run: flutter pub upgrade
 
       - name: Analyze project source
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
