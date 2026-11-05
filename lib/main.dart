@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use
 import 'package:bd_locations/bd_locations.dart';
 import 'package:flutter/material.dart';
 
