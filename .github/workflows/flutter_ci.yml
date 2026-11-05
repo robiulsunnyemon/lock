@@ -1,0 +1,45 @@
+name: Flutter CI/CD
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  schedule:
+    # প্রতি ২ ঘণ্টা অন্তর অন্তর স্বয়ংক্রিয়ভাবে রান হবে
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Flutter CI (${{ matrix.job_name }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - job_name: "Android Analyze & Test"
+            os: ubuntu-latest
+          - job_name: "iOS Environment Check"
+            os: macos-latest
+          - job_name: "Unit & Widget Tests"
+            os: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter (No Cache)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: false
+
+      - name: Get packages from pub.dev
+        run: flutter pub get
+
+      - name: Analyze project source
+        run: flutter analyze
+
+      - name: Run widget tests
+        run: flutter test
