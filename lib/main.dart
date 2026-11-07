@@ -34,11 +34,13 @@ class _BdAddressPickerState extends State<BdAddressPicker> {
   Division? selectedDivision;
   District? selectedDistrict;
   Upazila? selectedUpazila;
+  Union? selectedUnion;
 
   @override
   Widget build(BuildContext context) {
-    final districts = selectedDivision?.districts ?? [];
-    final upazilas = selectedDistrict?.upazilas ?? [];
+    final districts = selectedDivision?.districts ?? const [];
+    final upazilas = selectedDistrict?.upazilas ?? const [];
+    final unions = selectedUpazila?.unions ?? const [];
 
     return Scaffold(
       body: Column(
@@ -47,7 +49,7 @@ class _BdAddressPickerState extends State<BdAddressPicker> {
         children: [
           DropdownButtonFormField<Division>(
             value: selectedDivision,
-            hint: const Text('বিভাগ নির্বাচন করুন (Select Division)'),
+            hint: const Text('Select Division (বিভাগ নির্বাচন করুন)'),
             items: BdLocations.divisions.map((div) {
               return DropdownMenuItem(
                 value: div,
@@ -59,13 +61,14 @@ class _BdAddressPickerState extends State<BdAddressPicker> {
                 selectedDivision = division;
                 selectedDistrict = null;
                 selectedUpazila = null;
+                selectedUnion = null;
               });
             },
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<District>(
             value: selectedDistrict,
-            hint: const Text('জেলা নির্বাচন করুন (Select District)'),
+            hint: const Text('Select District (জেলা নির্বাচন করুন)'),
             items: districts.map((dist) {
               return DropdownMenuItem(
                 value: dist,
@@ -76,13 +79,14 @@ class _BdAddressPickerState extends State<BdAddressPicker> {
               setState(() {
                 selectedDistrict = district;
                 selectedUpazila = null;
+                selectedUnion = null;
               });
             },
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<Upazila>(
             value: selectedUpazila,
-            hint: const Text('উপজেলা নির্বাচন করুন (Select Upazila)'),
+            hint: const Text('Select Upazila (উপজেলা নির্বাচন করুন)'),
             items: upazilas.map((upa) {
               return DropdownMenuItem(
                 value: upa,
@@ -90,7 +94,24 @@ class _BdAddressPickerState extends State<BdAddressPicker> {
               );
             }).toList(),
             onChanged: (upazila) {
-              setState(() => selectedUpazila = upazila);
+              setState(() {
+                selectedUpazila = upazila;
+                selectedUnion = null;
+              });
+            },
+          ),
+          const SizedBox(height: 12),
+          DropdownButtonFormField<Union>(
+            value: selectedUnion,
+            hint: const Text('Select Union (ইউনিয়ন নির্বাচন করুন)'),
+            items: unions.map((uni) {
+              return DropdownMenuItem(
+                value: uni,
+                child: Text('${uni.nameBn} (${uni.nameEn})'),
+              );
+            }).toList(),
+            onChanged: (union) {
+              setState(() => selectedUnion = union);
             },
           ),
         ],

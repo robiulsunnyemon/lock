@@ -13,10 +13,10 @@ packages:
     dependency: "direct main"
     description:
       name: bd_locations
-      sha256: "5e3db0e1f9b6bb4223747578c364523600d668dc9b62a2b272f2cf5ecffceb05"
+      sha256: "581a78f2d0072acb75297b843b58af025134c9682f0335f42febf0edc6e4e0d5"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0"
+    version: "0.2.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -184,6 +184,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  sync_pilot:
+    dependency: "direct main"
+    description:
+      name: sync_pilot
+      sha256: "99b385b1345f2443fdf6a36ffb9b7905105211b3bf191dd635622982eb6a5dd7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   term_glyph:
     dependency: transitive
     description:
